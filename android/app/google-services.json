@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12213064835",
+    "project_id": "maikissanassignment",
+    "storage_bucket": "maikissanassignment.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12213064835:android:72d274afbce1c2c8e477b6",
+        "android_client_info": {
+          "package_name": "com.maikissanassignmant"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ7iNNbwHeRStLWhwi368LPU3AN43AkYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
