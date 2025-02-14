@@ -1,7 +1,41 @@
-# React Native App
+# Mai Kissan Assignment
 
 
-[![YouTube Preview](https://img.youtube.com/vi/Og6KtvMSnVM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Og6KtvMSnVM)
+🔗 [Watch the Video](https://www.youtube.com/watch?v=Og6KtvMSnVM)
+
+
+## App Structure & Standout Features
+
+### 1. **Splash Screen**
+
+- Displays for 3 seconds.
+- Checks if the user is logged in:
+  - If logged in, navigates to **Listing Page**.
+  - If not logged in, navigates to **Signup Page**.
+
+### 2. **Authentication (Firebase Auth)**
+
+- **Signup Page**:
+  - Fields: Email, Password, Confirm Password (All required with validation).
+  - Signup button navigates to **Sign-in Page**.
+- **Sign-in Page**:
+  - Users can sign in with valid credentials.
+- **Toast Notifications**:
+  - Displays success/error messages.
+
+### 3. **Listing Page**
+
+- Fetches data from an API.
+- Displays data in a card view.
+- Clicking on a card navigates to **Details Page**.
+- Logout button:
+  - Shows a confirmation popup before logging out.
+
+### 4. **Details Page**
+
+- Displays full details of the selected item.
+- Back button to return to **Listing Page**.
+
 
 ## Setup Instructions
 
@@ -47,37 +81,6 @@
   npx react-native run-ios
   ```
 
-## App Structure & Standout Features
-
-### 1. **Splash Screen**
-
-- Displays for 3 seconds.
-- Checks if the user is logged in:
-  - If logged in, navigates to **Listing Page**.
-  - If not logged in, navigates to **Signup Page**.
-
-### 2. **Authentication (Firebase Auth)**
-
-- **Signup Page**:
-  - Fields: Email, Password, Confirm Password (All required with validation).
-  - Signup button navigates to **Sign-in Page**.
-- **Sign-in Page**:
-  - Users can sign in with valid credentials.
-- **Toast Notifications**:
-  - Displays success/error messages.
-
-### 3. **Listing Page**
-
-- Fetches data from an API.
-- Displays data in a card view.
-- Clicking on a card navigates to **Details Page**.
-- Logout button:
-  - Shows a confirmation popup before logging out.
-
-### 4. **Details Page**
-
-- Displays full details of the selected item.
-- Back button to return to **Listing Page**.
 
 ## Technologies Used
 
