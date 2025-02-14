@@ -80,7 +80,7 @@ const ListingPage = () => {
         <View>
             <View className='shadow-lg rounded-full flex flex-row items-center justify-between ml-4 mt-5 mb-5 mr-4'>
                 <View className=''>
-                    <Text className=' font-mono text-[26px]'>Namaste 🙏 </Text>
+                    <Text onPress={()=>{navigation.navigate('Details')}} className=' font-mono text-[26px]'>Namaste 🙏 </Text>
                 </View>
                 <View className=''>
                     <Svg onPress={()=>{setIsVisible(true)}} width="30" height="30" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
