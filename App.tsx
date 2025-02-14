@@ -5,27 +5,27 @@ import React, { useEffect } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { signinUser } from './FirebaseSetup/Auth';
 
-import SignUpPage from './src/components/SignUpPage';
-import SignPage from './src/components/SignPage';
 import Toast from 'react-native-toast-message';
-import SignInPage from './src/components/SignInPage';
+import ListingPage from './src/components/ListingPage';
+import SignUpPage from './src/components/SignUpPage';
 
 
 const App = () => {
-  
-   const send =  async ()=>{
-    signinUser('xyz@gmail.com','12345678');
-  }
 
   return (
     <SafeAreaView>
       <View>
       {/* <SignUpPage /> */}
-      <SignInPage />
+      {/* <ListingPage /> */}
+
+
+      <ListingPage />
+     
+      {/* <SignInPage /> */}
       {/* <SignPage /> */}
       {/* <Text>Hele</Text> */}
       </View>
-
+      {/* <Demo /> */}
       <Toast />
     </SafeAreaView>
   );
