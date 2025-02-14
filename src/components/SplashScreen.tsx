@@ -6,18 +6,25 @@ import { Image, Text, View } from 'react-native'
 const SplashScreen = () => {
     const navigation = useNavigation();
     
-    useEffect(()=>{
-        setInterval(()=>{
-            checkUserLogin().then((res)=>{
-                if(res.status === 200){
-                    navigation.navigate('Listing');
-                } else{
-                    navigation.navigate('Login');
-                }
-            })
-            
-        },3000);
-    })
+    useEffect(() => {
+        const timeout = setTimeout(async () => {
+            const res = await checkUserLogin();
+            if (res.status === 200) {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Listing' }],
+                });
+            } else {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Signup' }],
+                });
+            }
+        }, 3000);
+
+        return () => clearTimeout(timeout); 
+    }, []);
+
   return (
     <View className='flex flex-col h-full'>
         <View className='justify-center w-full items-center h-full '>

@@ -6,6 +6,7 @@ import ShimmerCard from './ShimmerCard ';
 import Svg, { G, Path, ClipPath, Rect, Defs } from "react-native-svg";
 import Dialog from "react-native-dialog";
 import { signOutUser } from './../../FirebaseSetup/Auth';
+import { useNavigation } from '@react-navigation/native';
 
 const ListingPage = () => {
     const [refreshing, setRefreshing] = useState(false);
@@ -14,6 +15,7 @@ const ListingPage = () => {
     const [posts, setPosts] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
 
+    const navigation = useNavigation();
 
     const fetchPosts = async () => {
         setLoading(true);
@@ -58,6 +60,12 @@ const ListingPage = () => {
                     type:'success',
                     text1:'Logout Successfully!'
                 });
+
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
+
             } else{
                 Toast.show({
                     type:'error',

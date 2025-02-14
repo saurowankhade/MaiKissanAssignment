@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { loginUser, signinUser } from './../../FirebaseSetup/Auth';
 import { useState } from 'react';
 import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -11,11 +13,13 @@ const SignInPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
 
+    const navigation = useNavigation();
+
     const handleSubmit = ()=>{
-        setIsLoading(true);
+        
           if(userEmail === '' ){
             Toast.show({
-                type: "error",
+                type: 'error',
                 text1: "Opps! Looks like you miss email.",
               });
           } else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)){
@@ -29,18 +33,46 @@ const SignInPage = () => {
                 text1: "Opps! Looks like you miss Password.",
               });
           } else if (userPassword.length < 7) {
-            Toast.show({type:'error',text1:'Password must be at least 7 characters 🔴'})
+            Toast.show({type:'error',text1:'Password must be at least 7 characters '})
         } else if (!/[0-9]/.test(userPassword)) {
-            Toast.show({type:'error',text1:'Password must contain at least one number 🔢'})
+            Toast.show({type:'error',text1:'Password must contain at least one number '})
         } else if (!/[!@#$%^&*]/.test(userPassword)) {
-            Toast.show({type:'error',text1:'Password must contain at least one special character 💥'})
+            Toast.show({type:'error',text1:'Password must contain at least one special character '})
         } else  {
            setIsLoading(true);
+           loginUser(userEmail,userPassword)
+           .then((res)=>{            
+            if(res.status === 200){
+                Toast.show({
+                    type:'success',
+                    text1:'Signin sucessful!'
+                });
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Listing' }],
+                });
+
+            } else{
+                Toast.show({
+                    type:'error',
+                    text1:'SignIn failed!'
+                });
+                navigation.navigate('Signup');
+            }
+            setIsLoading(false)
+           }).catch((error)=>{
+            Toast.show({
+                type:'error',
+                text2:error.message,
+            })
+            setIsLoading(false)
+           })
         } 
     }
 
+    
     const handleSignUpButton = ()=>{
-
+        navigation.navigate('Signup')
     }
 
     return (

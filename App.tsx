@@ -21,7 +21,8 @@ const App = () => {
 
   return (
 
-    <NavigationContainer>
+  <View className='flex-1 '>
+      <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Splash">
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Login" component={SignInPage} />
@@ -30,6 +31,8 @@ const App = () => {
                 <Stack.Screen name="Details" component={Details} />
             </Stack.Navigator>
     </NavigationContainer>
+    <Toast />
+  </View>
 
 
     // <SafeAreaView>

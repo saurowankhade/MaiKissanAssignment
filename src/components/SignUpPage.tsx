@@ -1,3 +1,5 @@
+import { useNavigation } from '@react-navigation/native';
+import { signinUser, signOutUser } from './../../FirebaseSetup/Auth';
 import { useState } from 'react';
 import { ActivityIndicator, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -12,9 +14,10 @@ const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading,setIsLoading] = useState(false);
+    
+        const navigation = useNavigation();
 
     const handleSubmit = ()=>{
-        setIsLoading(true);
           if(userEmail === '' ){
             Toast.show({
                 type: "error",
@@ -38,14 +41,31 @@ const SignUpPage = () => {
             Toast.show({type:'error',text1:'Password must contain at least one special character 💥'})
         } else if(userPassword === userConfirmPassword) {
            setIsLoading(true);
+           signinUser(userEmail,userPassword)
+           .then((res)=>{
+            console.log(res);
+            if(res.status === 200){
+                Toast.show({
+                    type:'success',
+                    text1:'SignUp sucessful!'
+                });
+                signOutUser().then((res)=>{
+                    navigation.navigate('Login');
+                });
+            } else{
+                Toast.show({
+                    type:'error',
+                    text1:`Email alreay exist.`,
+                });
+            }
+            setIsLoading(false)
+           })
         } else{
             Toast.show({type:'error',text1:'Confirm Password mis match!'})
         }
     }
 
-    const handleSignInButton = ()=>{
-
-    }
+   
 
     return (
         <View className='flex h-full justify-center  border-red-700 items-center bg-slate-100'>
@@ -240,7 +260,7 @@ const SignUpPage = () => {
                     <View className="mt-5 flex-row justify-center">
                         <Text className="text-gray-600">Already have an account?</Text>
                         <TouchableOpacity>
-                            <Text onPress={handleSignInButton} className="text-purple-800 font-bold ml-1">Sign In</Text>
+                            <Text onPress={() => navigation.navigate('Login')} className="text-purple-800 font-bold ml-1">Sign In</Text>
                         </TouchableOpacity>
                     </View>
 
