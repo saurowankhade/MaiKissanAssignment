@@ -1,5 +1,8 @@
 # React Native App
 
+
+[![YouTube Preview](https://img.youtube.com/vi/Og6KtvMSnVM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Og6KtvMSnVM)
+
 ## Setup Instructions
 
 1. Clone the repository:
