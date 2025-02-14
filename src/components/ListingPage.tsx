@@ -4,20 +4,23 @@ import Toast from 'react-native-toast-message';
 import Card from './Card';
 import ShimmerCard from './ShimmerCard ';
 import Svg, { G, Path, ClipPath, Rect, Defs } from "react-native-svg";
+import Dialog from "react-native-dialog";
+import { signOutUser } from './../../FirebaseSetup/Auth';
 
 const ListingPage = () => {
     const [refreshing, setRefreshing] = useState(false);
-    const [startNo, setStartNo] = useState(10); 
+    const [startNo, setStartNo] = useState(10);
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [isVisible, setIsVisible] = useState(false);
 
-    
+
     const fetchPosts = async () => {
         setLoading(true);
         try {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${startNo}`);
             const data = await response.json();
-            setPosts(data); 
+            setPosts(data);
         } catch (error) {
             Toast.show({
                 type: 'error',
@@ -29,11 +32,11 @@ const ListingPage = () => {
 
     useEffect(() => {
         fetchPosts();
-    }, [startNo]); 
+    }, [startNo]);
 
-    
+
     const loadMore = () => {
-        if (startNo < 100) { 
+        if (startNo < 100) {
             setStartNo((prev) => prev + 10);
         }
     };
@@ -47,56 +50,65 @@ const ListingPage = () => {
         }, 1500);
     };
 
-    return (
-       <View>
-        <View className='shadow-lg rounded-full flex flex-row items-center justify-between ml-4 mt-5 mb-5 mr-4'>
-            <View className=''>
-                <Text  className='text-[28px]'>Namaste 🙏</Text>
-            </View>
-            <View className=''>
-            <Svg width={50} height={50} viewBox="0 0 60 60" fill="none">
-      <G clipPath="url(#clip0)">
-        <Path
-          d="M30.0004 7.42664C24.2126 7.42664 19.5039 12.1353 19.5039 17.9232C19.5039 20.7322 20.6117 23.9197 22.4672 26.4498C24.5659 29.3115 27.2414 30.8875 30.0004 30.8875C32.7596 30.8875 35.435 29.3116 37.5338 26.4498C39.3894 23.9197 40.4971 20.7322 40.4971 17.9232C40.4971 12.1353 35.7883 7.42664 30.0004 7.42664ZM30.0004 28.6496C28.0018 28.6496 25.9139 27.3655 24.2718 25.1263C22.7113 22.9985 21.7418 20.2384 21.7418 17.9232C21.7418 13.3693 25.4466 9.66455 30.0004 9.66455C34.5543 9.66455 38.2591 13.3693 38.2591 17.9232C38.2592 22.6513 34.3706 28.6496 30.0004 28.6496Z"
-          fill="black"
-        />
-        <Path
-          d="M30.0002 0C16.3202 0 5.19043 11.1296 5.19043 24.8098C5.19043 38.4898 16.32 49.6195 30.0002 49.6195C43.6804 49.6195 54.81 38.49 54.81 24.8098C54.81 11.1296 43.6802 0 30.0002 0ZM30.0002 47.3816C25.5096 47.3815 21.3214 46.0629 17.8016 43.7932C17.924 40.3664 19.4753 37.1536 22.102 34.923C23.1458 34.0367 24.6699 33.9398 25.8948 34.6821C27.2179 35.4838 28.5993 35.8904 30.0006 35.8904C31.4017 35.8904 32.7827 35.484 34.1051 34.6827C35.3287 33.9412 36.8488 34.0344 37.8876 34.9147C40.5163 37.1421 42.0764 40.3641 42.1986 43.7935C38.6788 46.063 34.4906 47.3816 30.0002 47.3816ZM44.308 42.2544C43.8248 38.7509 42.0685 35.5241 39.3344 33.2073C37.5605 31.7043 34.9928 31.528 32.9453 32.7688C31.0096 33.9416 28.9908 33.9415 27.0547 32.7682C25.0047 31.5259 22.4325 31.7066 20.6533 33.2173C17.9216 35.5371 16.1723 38.7546 15.6904 42.2529C10.6493 38.1098 7.42834 31.829 7.42834 24.8099C7.42834 12.3636 17.5541 2.23791 30.0002 2.23791C42.4464 2.23791 52.5721 12.3636 52.5721 24.8098C52.5721 31.8298 49.3504 38.1113 44.308 42.2544Z"
-          fill="black"
-        />
-        <Path
-          d="M45.1769 52.5718H14.8231C14.2051 52.5718 13.7041 53.0728 13.7041 53.6907C13.7041 54.3087 14.2051 54.8097 14.8231 54.8097H45.1769C45.7948 54.8097 46.2958 54.3087 46.2958 53.6907C46.296 53.0728 45.7948 52.5718 45.1769 52.5718Z"
-          fill="black"
-        />
-        <Path
-          d="M45.1769 57.7621H14.8231C14.2051 57.7621 13.7041 58.2631 13.7041 58.881C13.7041 59.499 14.2051 60 14.8231 60H45.1769C45.7948 60 46.2958 59.499 46.2958 58.881C46.296 58.2631 45.7948 57.7621 45.1769 57.7621Z"
-          fill="black"
-        />
-      </G>
-      <Defs>
-        <ClipPath id="clip0">
-          <Rect width={60} height={60} fill="white" />
-        </ClipPath>
-      </Defs>
-    </Svg>
-            </View>
-        </View>
-         <FlatList
-            data={posts}
-            keyExtractor={(item) => item.id.toString()} 
-            renderItem={({ item }) => <Card data={item} />}
-            onEndReached={loadMore}  
-            onEndReachedThreshold={0.5}
-            ListFooterComponent={loading ? <ShimmerCard /> : null}
-            refreshControl={
-                <RefreshControl className='bg-white'
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    colors={['black']}
-                />
+    const handlelogout = ()=>{
+        signOutUser()
+        .then((res)=>{
+            if(res.status === 200){
+                Toast.show({
+                    type:'success',
+                    text1:'Logout Successfully!'
+                });
+            } else{
+                Toast.show({
+                    type:'error',
+                    text1:'Failed to Logout!'
+                });
             }
-        />
-       </View>
+            setIsVisible(false);
+        });
+    }
+
+    return (
+        <View>
+            <View className='shadow-lg rounded-full flex flex-row items-center justify-between ml-4 mt-5 mb-5 mr-4'>
+                <View className=''>
+                    <Text className=' font-mono text-[26px]'>Namaste 🙏 </Text>
+                </View>
+                <View className=''>
+                    <Svg onPress={()=>{setIsVisible(true)}} width="30" height="30" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <Path fill-rule="evenodd" clip-rule="evenodd" d="M2.91699 9.47925C2.91699 5.85488 5.85513 2.91675 9.47949 2.91675H17.5003C20.7219 2.91675 23.3337 5.52842 23.3337 8.75008V10.2084C23.3337 11.0138 22.6808 11.6667 21.8753 11.6667C21.0699 11.6667 20.417 11.0138 20.417 10.2084V8.75008C20.417 7.13925 19.1112 5.83341 17.5003 5.83341H9.47949C7.46596 5.83341 5.83366 7.46571 5.83366 9.47925V25.5209C5.83366 27.5344 7.46596 29.1667 9.47949 29.1667H17.5003C19.1112 29.1667 20.417 27.861 20.417 26.2501V24.7917C20.417 23.9863 21.0699 23.3334 21.8753 23.3334C22.6808 23.3334 23.3337 23.9863 23.3337 24.7917V26.2501C23.3337 29.4717 20.7219 32.0834 17.5003 32.0834H9.47949C5.85513 32.0834 2.91699 29.1453 2.91699 25.5209V9.47925ZM26.6775 12.0939C27.247 11.5244 28.1704 11.5244 28.7398 12.0939L33.1148 16.4689C33.6843 17.0384 33.6843 17.9618 33.1148 18.5313L28.7398 22.9063C28.1704 23.4757 27.247 23.4757 26.6775 22.9063C26.108 22.3368 26.108 21.4134 26.6775 20.8439L28.563 18.9584H16.042C15.2366 18.9584 14.5837 18.3055 14.5837 17.5001C14.5837 16.6946 15.2366 16.0417 16.042 16.0417H28.563L26.6775 14.1563C26.108 13.5868 26.108 12.6634 26.6775 12.0939Z" fill="#0F1729" />
+                    </Svg>
+
+                </View>
+            </View>
+            <FlatList
+                data={posts}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => <Card data={item} />}
+                onEndReached={loadMore}
+                onEndReachedThreshold={0.5}
+                ListFooterComponent={loading ? <ShimmerCard /> : null}
+                refreshControl={
+                    <RefreshControl className='bg-white'
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        colors={['black']}
+                    />
+                }
+            />
+
+<View>
+    <Dialog.Container visible={isVisible}>
+      <Dialog.Title>Logout</Dialog.Title>
+      <Dialog.Description>
+        Are you Sure to logout ?
+      </Dialog.Description>
+      <Dialog.Button onPress={()=>{setIsVisible(false)}} label="No" />
+      <Dialog.Button onPress={handlelogout} label="Yes" />
+    </Dialog.Container>
+  </View>
+
+        </View>
     );
 };
 
