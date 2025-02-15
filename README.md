@@ -17,7 +17,7 @@
 
 - **Signup Page**:
   - Fields: Email, Password, Confirm Password (All required with validation).
-  - Signup button navigates to **Sign-in Page**.
+  - SignIn button navigates to **Sign-in Page**.
 - **Sign-in Page**:
   - Users can sign in with valid credentials.
 - **Toast Notifications**:
