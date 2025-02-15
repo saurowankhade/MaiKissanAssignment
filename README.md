@@ -27,6 +27,7 @@
 
 - Fetches data from an API.
 - Displays data in a card view.
+- Pull to refresh functionality
 - Clicking on a card navigates to **Details Page**.
 - Logout button:
   - Shows a confirmation popup before logging out.
